@@ -1,6 +1,11 @@
 # flutter_ocr
 
-A new Flutter application.
+flutter ocr app using flutter mobile vision.
+
+
+- OCR
+
+- [flutter_mobile_vision](https://pub.dev/packages/flutter_mobile_vision)
 
 ## Getting Started
 
