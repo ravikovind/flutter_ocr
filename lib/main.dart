@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_vision/flutter_mobile_vision.dart';
+import 'package:flutter_ocr/theme.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,16 +11,18 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'OCR',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        fontFamily: GoogleFonts.lato().fontFamily,
-      ),
-      home: MyHomePage(),
-    );
+    return ChangeNotifierProvider(
+        create: (_) => ThemeNotifier(),
+        child: Consumer<ThemeNotifier>(
+          builder: (context, ThemeNotifier notifier, child) {
+            return MaterialApp(
+              title: 'Flutter OCR',
+              debugShowCheckedModeBanner: false,
+              theme: !notifier.darkTheme ? dark : light,
+              home: MyHomePage(),
+            );
+          },
+        ));
   }
 }
 
@@ -86,6 +89,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       isEmpty = true;
                     });
                   }),
+          Consumer<ThemeNotifier>(
+              builder: (context, notifier, child) => IconButton(
+                  icon: Icon(notifier.darkTheme
+                      ? Icons.brightness_2
+                      : Icons.brightness_7_rounded),
+                  onPressed: () {
+                    notifier.toggleTheme();
+                  })),
         ],
         title: Text(
           "OCR",

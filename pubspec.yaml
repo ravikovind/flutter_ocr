@@ -31,6 +31,8 @@ dependencies:
   flutter_mobile_vision: ^0.1.4+1
   google_fonts:
   flutter_tts: ^3.0.0
+  shared_preferences:
+  provider:
 
 dev_dependencies:
   flutter_test:
